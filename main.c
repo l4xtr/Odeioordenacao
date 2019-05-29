@@ -2,19 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#define tam 8
+#define tam 8;
 
-typedef struct Fabricante(){
+typedef struct Fabricante{
 	char nome[50];
-	char nacionalidade[20]};
-	int anoFabricacao[4];
+	char nacionalidade[20];
+	int anoFabricacao;
 }Fabricante;
 
-void lerDados(struct *Fabricante fabricantes){
+void lerDados(struct Fabricante *fabricantes){
 	
 	strcpy(fabricantes[0].nome,"Felipe");
 	strcpy(fabricantes[0].nacionalidade,"Brasil");
-	pessoas[0].anoFabricacao = 2010;
+	fabricantes[0].anoFabricacao = 2010;
 	
 	strcpy(fabricantes[1].nome,"Martins");
 	strcpy(fabricantes[1].nacionalidade,"Italia");
@@ -49,18 +49,22 @@ void lerDados(struct *Fabricante fabricantes){
 	fabricantes[8].anoFabricacao = 2018;
 }
 
-void insertionSort(struct Fabricante *fabricantes, int n){
-	struct Fabricante aux;
-	int i, k, j;
-	for(i=0; i<n; i++){
-		strcpy(auxn[i], Fabricante[i].nome)
-		k=0;
-		j=i-1;
-		while((j>=0) && (k==0)){
-			if(strcmp(auxn[i], Fabricante[i].nome))
+void insertionSort(struct Fabricante *vet, int n, int b, int c){
+struct Fabricante aux;
+	int i, a;
+	for(i=b+c; i<n; i = i+c){
+		aux = vet[i];
+		a = i-c;
+		while( (a>=b) && (strcmp(vet[a].nome, aux.nome) > 0)
+        || (strcmp(vet[a].nome, aux.nome) == 0 && strcmp(vet[a].nacionalidade, aux.nacionalidade) > 0)
+        || (strcmp(vet[a].nacionalidade, aux.nacionalidade) == 0 && vet[a].anoFabricacao > aux.anoFabricacao))
+        {
+        	vet[a+c] = vet[a];
+        	a = a-c;
 		}
+		vet[a+c] = aux;
 	}
-} 
+}
 
 int main(){
 	int n=8;
