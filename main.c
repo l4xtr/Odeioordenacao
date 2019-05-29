@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#define tam 8;
 
 typedef struct Fabricante{
 	char nome[50];
@@ -49,26 +48,65 @@ void lerDados(struct Fabricante *fabricantes){
 	fabricantes[8].anoFabricacao = 2018;
 }
 
-void insertionSort(struct Fabricante *vet, int n, int b, int c){
-struct Fabricante aux;
-	int i, a;
-	for(i=b+c; i<n; i = i+c){
+void insertionSort(struct Fabricante *vet, int cont){
+	struct Fabricante aux;
+	int i, j;
+	for(i=1; i<cont; i++){
 		aux = vet[i];
-		a = i-c;
-		while( (a>=b) && (strcmp(vet[a].nome, aux.nome) > 0)
-        || (strcmp(vet[a].nome, aux.nome) == 0 && strcmp(vet[a].nacionalidade, aux.nacionalidade) > 0)
-        || (strcmp(vet[a].nacionalidade, aux.nacionalidade) == 0 && vet[a].anoFabricacao > aux.anoFabricacao))
+		j = i - 1;
+		while( (j>=0) && (strcmp(vet[j].nome, aux.nome) > 0)
+        || (strcmp(vet[j].nome, aux.nome) == 0 && strcmp(vet[j].nacionalidade, aux.nacionalidade) > 0)
+        || (strcmp(vet[j].nacionalidade, aux.nacionalidade) == 0 && vet[j].anoFabricacao > aux.anoFabricacao))
         {
-        	vet[a+c] = vet[a];
-        	a = a-c;
+        	vet[j+1] = vet[j];
+        	j = j-1;
 		}
-		vet[a+c] = aux;
+		vet[j+1] = aux;
+	}
+}
+
+void insertionSortAdaptado(struct Fabricante *vet, int cont, int f, int h){
+struct Fabricante aux;
+	int j, i;
+	for(i=f+h; i<cont; i = i+h){
+		aux = vet[i];
+		j = i-h;
+		while( (j>=f) && (strcmp(vet[j].nome, aux.nome) > 0)
+        || (strcmp(vet[j].nome, aux.nome) == 0 && strcmp(vet[j].nacionalidade, aux.nacionalidade) > 0)
+        || (strcmp(vet[j].nacionalidade, aux.nacionalidade) == 0 && vet[j].anoFabricacao > aux.anoFabricacao))
+        {
+        	vet[j+h] = vet[j];
+        	j = j-h;
+		}
+		vet[j+h] = aux;
+	}
+}
+
+void shellSort(struct Fabricante *vet, int cont, int np)
+{
+	int h, p, j;
+	for(p = np; p>0; p--){
+		h = (int) pow(2, (int) p-1);
+		for(j=0; j<h; j++)
+			insertionSortAdaptado(vet, cont, j, h);
+}
+}
+
+void imprimeDados(struct Fabricante *vet, int cont){
+	int i;
+	for(i=0; i<cont; i++){
+		printf(" Nome do Fabricante: %s \n", vet[i].nome);
+		printf(" Nacionalidade do Fabricante: %s \n", vet[i].nacionalidade);
+		printf(" Ano de Abertura: %d \n\n", vet[i].anoFabricacao);
 	}
 }
 
 int main(){
-	int n=8;
+	int cont=8;
 	Fabricante fabricantes[8];
 	lerDados(fabricantes);
-	insertionSort(fabricantes, n);
+	insertionSort(fabricantes, cont);
+	shellSort(fabricantes, cont, 2);
+	imprimeDados(fabricantes, cont);
+	return 0;
 	}
