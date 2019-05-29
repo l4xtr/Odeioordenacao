@@ -48,7 +48,7 @@ void lerDados(struct Fabricante *fabricantes){
 	fabricantes[8].anoFabricacao = 2018;
 }
 
-void insertionSort(struct Fabricante *vet, int cont){
+/*void insertionSort(struct Fabricante *vet, int cont){
 	struct Fabricante aux;
 	int i, j;
 	for(i=1; i<cont; i++){
@@ -63,7 +63,7 @@ void insertionSort(struct Fabricante *vet, int cont){
 		}
 		vet[j+1] = aux;
 	}
-}
+}*/
 
 void insertionSortAdaptado(struct Fabricante *vet, int cont, int f, int h){
 struct Fabricante aux;
@@ -105,7 +105,7 @@ int main(){
 	int cont=8;
 	Fabricante fabricantes[8];
 	lerDados(fabricantes);
-	insertionSort(fabricantes, cont);
+	//insertionSort(fabricantes, cont);
 	shellSort(fabricantes, cont, 2);
 	imprimeDados(fabricantes, cont);
 	return 0;
